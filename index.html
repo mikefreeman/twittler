@@ -7,30 +7,56 @@
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
     <script>
-
       $(document).ready(function(){
         var $content = $('.content');
-        $content.html('');
         var prevIndex = 0;
+        var name;
+
+        var clearContent = function() {
+          $content.html('');
+          prevIndex = 0;
+          $('div.alert').hide().html('');
+        }
 
         var getNewTweets = function() {
-          var index = streams.home.length - 1;
+          var tweets = name ? streams.users[name] : streams.home;
+          var index = tweets.length - 1;
           while (prevIndex <= index) {
-            var tweet = streams.home[prevIndex];
-            var $tweet = $('<div style="display: none;"></div>');
+            var tweet = tweets[prevIndex];
+            var $tweet = $('<div></div>');
             $tweet.text('@' + tweet.user + ': ' + tweet.message);
-            $tweet.prependTo($content).fadeIn();
+            $tweet.hide().prependTo($content).fadeIn();
             prevIndex += 1;
           }
         }
 
-        var autoGrabber = setInterval(getNewTweets, 1000);
+        var checkTweets = function() {
+          var tweets = name ? streams.users[name] : streams.home;
+          var index = tweets.length - 1;
+          if (index - prevIndex > 0) {
+            if ($('div.alert').text() === '') {
+              $('div.alert').hide();
+            }
+            $('div.alert').html('<a href="#" class="alert">' + (index - prevIndex) + ' new tweet(s)' + '</a>').slideDown();
+          }
+
+          $('.alert a').on('click', function(e) {
+            e.preventDefault();
+            $('div.alert').slideUp().html('');
+            getNewTweets();
+          });
+        }
+
+        clearContent();
+        getNewTweets();
+        var autoGrabber = setInterval(checkTweets, 4000);
       });
 
     </script>
   </head>
   <body>
-    <h1>Twittler</h1>
+    <h1><a href="#">Twittler</a></h1>
+    <div class="alert"></div>
     <div class="content"></div>
   </body>
 </html>
