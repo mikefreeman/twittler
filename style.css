@@ -6,11 +6,24 @@ h1 {
   margin: 0 auto;
 }
 
+h1 span {
+  font-size: 36px;
+}
+
+.alert {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
 a { color: black; }
 a:link { text-decoration: none; }
 a:visited { text-decoration: none; }
 a:hover { text-decoration: underline; }
 a:active { text-decoration: underline; }
+a.alert {
+  color: blue;
+  text-decoration: underline;
+}
 
 .content {
   width: 450px;

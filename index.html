@@ -24,10 +24,31 @@
           while (prevIndex <= index) {
             var tweet = tweets[prevIndex];
             var $tweet = $('<div></div>');
-            $tweet.text('@' + tweet.user + ': ' + tweet.message);
+            $('<a href="#">' + '@' + tweet.user + '</a>').appendTo($tweet);
+            $('<span>' + ': ' + tweet.message + '</span>').appendTo($tweet);
             $tweet.hide().prependTo($content).fadeIn();
             prevIndex += 1;
           }
+
+          $('h1 a').on('click', function(e) {
+            e.preventDefault();
+            if (name) {
+              name = undefined;
+              clearContent();
+              $('h1').html('<a href="#">Twittler</a>');
+              getNewTweets();
+            }
+          });
+
+          $('.content a').on('click', function(e) {
+            e.preventDefault();
+            if (name === undefined) {
+              name = $(this).text().slice(1);
+              clearContent();
+              $('h1').append(' /' + '<span>' + name + '</span>');
+              getNewTweets();
+            }
+          });
         }
 
         var checkTweets = function() {
