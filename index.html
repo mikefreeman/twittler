@@ -5,6 +5,7 @@
     rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="jquery.js"></script>
+    <script src="jquery.timeago.js"></script>
     <script src="data_generator.js"></script>
     <script>
       $(document).ready(function(){
@@ -23,9 +24,10 @@
           var index = tweets.length - 1;
           while (prevIndex <= index) {
             var tweet = tweets[prevIndex];
-            var $tweet = $('<div></div>');
-            $('<a href="#">' + '@' + tweet.user + '</a>').appendTo($tweet);
-            $('<span>' + ': ' + tweet.message + '</span>').appendTo($tweet);
+            var $tweet = $('<div class="tweet"></div>');
+            $('<a href="#"><b>@' + tweet.user + '</b></a>').appendTo($tweet);
+            $('<span class="time">  -  ' + $.timeago(tweet.created_at) + '</span>').appendTo($tweet);
+            $('<div class="message">' + tweet.message + '</div>').appendTo($tweet);
             $tweet.hide().prependTo($content).fadeIn();
             prevIndex += 1;
           }
