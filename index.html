@@ -66,6 +66,7 @@
           $('.alert a').on('click', function(e) {
             e.preventDefault();
             $('div.alert').slideUp().html('');
+            clearContent();
             getNewTweets();
           });
         }
