@@ -38,6 +38,7 @@
               name = undefined;
               clearContent();
               $('h1').html('<a href="#">Twittler</a>');
+              $('.tweet-input').slideDown();
               getNewTweets();
             }
           });
@@ -48,6 +49,7 @@
               name = $(this).text().slice(1);
               clearContent();
               $('h1').append(' /' + '<span>' + name + '</span>');
+              $('.tweet-input').slideUp();
               getNewTweets();
             }
           });
@@ -71,6 +73,21 @@
           });
         }
 
+        $('body').on('click', 'button', function(e) {
+          e.preventDefault();
+          var newTweet = {};
+          newTweet.user = $('.user').val();
+          newTweet.message = $('.message').val();
+          newTweet.created_at = new Date();
+          var users = Object.keys(streams.users);
+          if (users.indexOf(user) === -1) {
+            streams.users[user] = [];
+          }
+          addTweet(newTweet);
+          $('.user').val('');
+          $('.message').val('');
+        })
+
         clearContent();
         getNewTweets();
         var autoGrabber = setInterval(checkTweets, 4000);
@@ -80,6 +97,13 @@
   </head>
   <body>
     <h1><a href="#">Twittler</a></h1>
+    <div class="tweet-input">
+      <form>
+        Name: <input class="user" type="text">
+        Message: <input class="message" type="text">
+        <button class="submit">Tweet!</button>
+      </form>
+    </div>
     <div class="alert"></div>
     <div class="content"></div>
   </body>

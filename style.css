@@ -36,16 +36,16 @@ a.alert {
   font-family: 'Helvetica' sans-serif;
 }
 
+.content .message {
+  margin-left: 15px;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
 .time {
   color: gray;
   font-size: 12px;
   margin: 0 auto;
-}
-
-.message {
-  margin-left: 15px;
-  margin-top: 5px;
-  font-size: 14px;
 }
 
 .tweet {
@@ -55,4 +55,20 @@ a.alert {
 
 .tweet:hover {
   background-color: #9F9FFF;
+}
+
+.tweet-input {
+  width: 450px;
+  margin: 0 auto;
+  padding-bottom: 5px;
+  font-size: 12px;
+  font-family: 'Helvetica' sans-serif;
+}
+
+.tweet-input .user {
+  width: 100px;
+}
+
+.tweet-input .message {
+  width: 180px;
 }
