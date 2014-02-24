@@ -80,13 +80,13 @@
           newTweet.message = $('.message').val();
           newTweet.created_at = new Date();
           var users = Object.keys(streams.users);
-          if (users.indexOf(user) === -1) {
-            streams.users[user] = [];
+          if (users.indexOf(newTweet.user) === -1) {
+            streams.users[newTweet.user] = [];
           }
           addTweet(newTweet);
           $('.user').val('');
           $('.message').val('');
-        })
+        });
 
         clearContent();
         getNewTweets();
