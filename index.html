@@ -20,6 +20,7 @@
         }
 
         var getNewTweets = function() {
+          clearContent();
           var tweets = name ? streams.users[name] : streams.home;
           var index = tweets.length - 1;
           while (prevIndex <= index) {
@@ -36,7 +37,6 @@
             e.preventDefault();
             if (name) {
               name = undefined;
-              clearContent();
               $('h1').html('<a href="#">Twittler</a>');
               $('.tweet-input').slideDown();
               getNewTweets();
@@ -47,7 +47,6 @@
             e.preventDefault();
             if (name === undefined) {
               name = $(this).text().slice(1);
-              clearContent();
               $('h1').append(' /' + '<span>' + name + '</span>');
               $('.tweet-input').slideUp();
               getNewTweets();
@@ -68,7 +67,6 @@
           $('.alert a').on('click', function(e) {
             e.preventDefault();
             $('div.alert').slideUp().html('');
-            clearContent();
             getNewTweets();
           });
         }
@@ -88,7 +86,6 @@
           $('.message').val('');
         });
 
-        clearContent();
         getNewTweets();
         var autoGrabber = setInterval(checkTweets, 4000);
       });
