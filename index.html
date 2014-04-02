@@ -11,6 +11,7 @@
       $(document).ready(function(){
         var $content = $('.content');
         var prevIndex = 0;
+        var currentIndex = 0;
         var name;
 
         var clearContent = function() {
@@ -19,11 +20,11 @@
           $('div.alert').hide().html('');
         }
 
-        var getNewTweets = function() {
+        var getNewTweets = function(index) {
           clearContent();
           var tweets = name ? streams.users[name] : streams.home;
-          var index = tweets.length - 1;
-          while (prevIndex <= index) {
+          index = index || tweets.length - 1;
+          while (prevIndex < index) {
             var tweet = tweets[prevIndex];
             var $tweet = $('<div class="tweet"></div>');
             $('<a href="#"><b>@' + tweet.user + '</b></a>').appendTo($tweet);
@@ -56,18 +57,18 @@
 
         var checkTweets = function() {
           var tweets = name ? streams.users[name] : streams.home;
-          var index = tweets.length - 1;
-          if (index - prevIndex > 0) {
+          currentIndex = tweets.length - 1;
+          if (currentIndex - prevIndex > 0) {
             if ($('div.alert').text() === '') {
               $('div.alert').hide();
             }
-            $('div.alert').html('<a href="#" class="alert">' + (index - prevIndex) + ' new tweet(s)' + '</a>').slideDown();
+            $('div.alert').html('<a href="#" class="alert">' + (currentIndex - prevIndex) + ' new tweet(s)' + '</a>').slideDown();
           }
 
           $('.alert a').on('click', function(e) {
             e.preventDefault();
             $('div.alert').slideUp().html('');
-            getNewTweets();
+            getNewTweets(currentIndex);
           });
         }
 
